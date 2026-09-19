@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "安心血压",
+    "slug": "pressure-journal",
+    "version": "1.0.0",
+    "icon": "./assets/icon.png",
+    "scheme": "pressurejournal",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "com.pressurejournal.app",
+      "versionCode": 1,
+      "allowBackup": false
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "选择血压记录图片进行识别",
+          "cameraPermission": "拍摄血压计进行识别",
+          "microphonePermission": false
+        }
+      ],
+      "expo-notifications",
+      "expo-status-bar",
+      "expo-sharing"
+    ]
+  }
+}
