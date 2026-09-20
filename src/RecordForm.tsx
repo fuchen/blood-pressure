@@ -5,6 +5,7 @@ import { Candidate, MeasurementInput, localDateTime, parseLocalDateTime, validat
 import { AdaptiveColumns, Button, Field, Notice, SelectField, confirm, ensureAI, showError, styles } from './ui';
 import { cleanTemporaryImages, ImportBatch, runBatch } from './importing';
 import { RecordTable } from './RecordTable';
+import { MeasurementTimeField } from './MeasurementTimeField';
 
 export function RecordForm({ initial, onSave, label = '保存记录', source = '手动记录', allowPhoto = false }: { initial?: Partial<MeasurementInput>; onSave: (data: MeasurementInput) => Promise<void>; label?: string; source?: string; allowPhoto?: boolean }) {
   const [systolic, setSystolic] = useState(initial?.systolic?.toString() ?? '');
@@ -74,7 +75,7 @@ export function RecordForm({ initial, onSave, label = '保存记录', source = '
     <View pointerEvents={recognizing ? 'none' : 'auto'} style={{ gap: 18, opacity: recognizing ? 0.5 : 1 }}>
     <AdaptiveColumns><Field label="收缩压 · mmHg" placeholder="120" keyboardType="number-pad" value={systolic} onChangeText={setSystolic} testID="systolic" /><Field label="舒张压 · mmHg" placeholder="80" keyboardType="number-pad" value={diastolic} onChangeText={setDiastolic} testID="diastolic" /></AdaptiveColumns>
     <Field label="心率 · 次/分（可选）" placeholder="例如 72" keyboardType="number-pad" value={pulse} onChangeText={setPulse} testID="pulse" />
-    <Field label="测量时间" placeholder="2026-09-19 08:00" value={time} onChangeText={setTime} autoCapitalize="none" maxFontSizeMultiplier={1.3} testID="measuredAt" />
+    <MeasurementTimeField value={time} onChange={setTime} />
     <SelectField label="测量手臂（可选）" testID="select-arm" value={arm} onChange={setArm} options={[{ label: '未选择', value: '' }, { label: '左臂', value: '左臂' }, { label: '右臂', value: '右臂' }]} />
     <SelectField label="服药情况（可选）" testID="select-medication" value={medication} onChange={setMedication} options={[{ label: '未选择', value: '' }, { label: '服药前', value: '服药前' }, { label: '服药后', value: '服药后' }, { label: '未服药', value: '未服药' }]} />
     <Field label="症状（可选）" placeholder="例如：无不适、头晕" value={symptoms} onChangeText={setSymptoms} maxLength={2000} />
